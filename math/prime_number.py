@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def main():
     print("Prime Number")
@@ -6,6 +7,8 @@ def main():
     print(f"11 is prime: {is_prime_naive(11)}")
     print(f"9 is prime: {is_prime_naive(9)}")
     print(f"997 is prime: {is_prime_naive(997)}")
+
+    print(sieve_of_erastothenes(100))
 
 # Either go till n or n/2
 def is_prime_naive(num):
@@ -49,6 +52,57 @@ def is_prime(num):
         i += 6
 
     return True
+"""
+Optimized Algorithm for printing prime numbers btw 1 to n
+
+Step 1: Create a boolean array size = n, mark all values as false
+Step 2: Start i from 2 loop till sqrt(n) if not marked in bool array(false):
+Step 3: run another loop from i*i (first unmarked number will be the square) till n and mark all multiples
+Step 4: print unmarked numbers
+"""
+def sieve_of_erastothenes(num):
+    bool_array = [False] * num 
+
+    i = 2
+
+    while i * i <= num:
+        if bool_array[i] == False:
+            j = i * i
+            while j < num:
+                bool_array[j] = True
+                j = j + i
+        
+        i += 1
+    
+    for i in range(2, num):
+        if bool_array[i] == False:
+            print(i)
+    
+# Application of above algorithm
+def count_primes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+    
+        bool_array = [False] * n
+
+        i = 2
+
+        while i*i < n:
+            if bool_array[i] ==  False:
+                for j in range(i * i, n, i):
+                    bool_array[j] = True
+            
+            i += 1
+        
+        count = 0
+
+        for num in bool_array[2:]:
+            if not num:
+                count +=1
+
+        return count
 
 if __name__ == "__main__":
     main()
