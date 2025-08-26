@@ -1,26 +1,35 @@
 def merge_sort(nums):
-    if len(nums) < 2:
+    if len(nums) == 1:
         return nums
-    first = merge_sort(nums[: len(nums) // 2])
-    second = merge_sort(nums[len(nums) // 2 :])
-    return merge(first, second)
+    
 
+    left = merge_sort(nums[:len(nums)//2])
+    right = merge_sort(nums[len(nums)//2 :])
+    return merge(left, right)
 
-def merge(first, second):
-    final = []
-    i = 0
-    j = 0
-    while i < len(first) and j < len(second):
-        if first[i] <= second[j]:
-            final.append(first[i])
-            i += 1
+def merge(left, right):
+    i, j = 0, 0
+
+    new = []
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            new.append(left[i])
+            i+=1
         else:
-            final.append(second[j])
-            j += 1
-    while i < len(first):
-        final.append(first[i])
-        i += 1
-    while j < len(second):
-        final.append(second[j])
-        j += 1
-    return final
+            new.append(right[j])
+            j+=1
+    
+    while i < len(left):
+        new.append(left[i])
+        i+=1
+
+    while j < len(right):
+        new.append(right[j])
+        j+=1
+    
+    return new
+
+nums = [7, 2, 5, 4, 1, 6, 0, 3]
+
+print(merge_sort(nums))

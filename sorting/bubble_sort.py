@@ -14,17 +14,18 @@ Algorithm
 """
 
 def bubble_sort(nums):
-    swapping = True
-    end = len(nums)
-    while swapping:
-        swapping = False
-        for i in range(1, end):
-            if nums[i - 1] > nums[i]:
-                temp = nums[i - 1]
-                nums[i - 1] = nums[i]
-                nums[i] = temp
-                swapping = True
-        end -= 1
-    return nums
+    for i in range(0, len(nums) - 1):
+        swap = False
+        for j in range(0, len(nums) - 2):
+            if nums[j] > nums[j+1]:
+                temp = nums[j]
+                nums[j] =  nums[j+1]
+                nums[j+1] = temp
+                swap = True
+        
+        if not swap:
+            break
+    
+    print(nums)
 
 print(bubble_sort([33, 22, 11, 44, 23]))
